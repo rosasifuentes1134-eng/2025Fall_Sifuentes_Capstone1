@@ -16,12 +16,14 @@ public class Ledger {
 
 
         for (Transaction transaction : transactions) {
+            //combine date and time into a single string display
             String dateTime = transaction.getDate() + " " + transaction.getTime();
+            //format and print transaction details in aligned columns
             System.out.printf("%-20s | %-20s | %-20s | %-10.2f\n", dateTime, transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
         }
 
     }
-
+    //displays only deposit transactions (positive amount)
     public static void showAllDeposit() {
         List<Transaction> transactions = FileManager.getTransaction();
         for (Transaction transaction : transactions) {
@@ -35,7 +37,7 @@ public class Ledger {
 
 
     }
-
+    //displays only payments transactions (negative amounts)
     public static void showAllPayments() {
         List<Transaction> transactions = FileManager.getTransaction();
         for (Transaction transaction : transactions) {
