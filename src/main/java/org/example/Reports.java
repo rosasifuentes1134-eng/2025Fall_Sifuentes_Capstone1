@@ -76,6 +76,7 @@ public class Reports {
 
     }
 
+
     public static List<Transaction> searchVendor(String keyword) {
         List<Transaction> transactions = FileManager.getTransaction();
         List<Transaction> vendorTransaction = new ArrayList<>();
@@ -83,6 +84,8 @@ public class Reports {
         for (Transaction transaction : transactions) {
             if (transaction.getVendor().toLowerCase().contains(keyword.toLowerCase())) {
                 vendorTransaction.add(transaction);
+                String dateTime = transaction.getDate() + " " + transaction.getTime();
+                System.out.printf("%-20s | %-20s | %-20s | %-10.2f\n", dateTime, transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
             }
         }
         return vendorTransaction;
@@ -98,6 +101,7 @@ public class Reports {
                 5) Search by vendor
                 6) Back
                 """);
+        List<Transaction> vendorTransaction = new ArrayList<>();
         int choice = Integer.parseInt(scanner.nextLine());
 
         switch (choice) {
@@ -116,7 +120,12 @@ public class Reports {
             case 5:
                 System.out.println("Enter Vendor:");
                 String vendor = scanner.nextLine();
-                searchVendor(vendor);
+                vendorTransaction = searchVendor(vendor);
+
+                for(Transaction transaction : vendorTransaction){
+                    String dateTime = transaction.getDate() + " " + transaction.getTime();
+                    System.out.printf("%-20s | %-20s | %-20s | %-10.2f\n", dateTime, transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
+                }
 
         }
     }
